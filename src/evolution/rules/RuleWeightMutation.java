@@ -32,7 +32,7 @@ public class RuleWeightMutation implements Operator{
                 for (int j = 0; j < o1.length(); j++) {
                     for (int k = 0; k < o1.getRules().get(j).getConditions().size(); k++)
                     if (rng.nextDouble() < mutProbPerBit) {
-//                        o1.getRules().get(j).mutateWeights();
+                        o1.getRules().get(j).mutateWeights();
                     }
                 }
             }

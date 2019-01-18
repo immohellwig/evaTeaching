@@ -1,6 +1,7 @@
 package evolution.rules;
 
 import evolution.RandomNumberGenerator;
+import evolution.rules.conditions.BetweenCondition;
 import evolution.rules.conditions.GreaterThanCondition;
 import evolution.rules.conditions.LessThanCondition;
 import evolution.rules.conditions.UniversalCondition;
@@ -24,13 +25,17 @@ public class RuleFactory {
                 GreaterThanCondition gc = new GreaterThanCondition(lb[i], ub[i]);
                 gc.randomInitialization();
                 r.addCondition(gc);
-            }
-            else {
+            } else if (ball < 0.75) {
+            	BetweenCondition bc = new BetweenCondition(lb[i], ub[i]);
+            	bc.randomInitialization();
+            	r.addCondition(bc);
+            } else {
                 r.addCondition(new UniversalCondition());
             }
         }
 
         r.setClassLabel(rng.nextInt(numClasses));
+        r.weight = rng.nextGaussian();
 
         return r;
     }

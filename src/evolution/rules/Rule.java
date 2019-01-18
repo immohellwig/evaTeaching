@@ -1,5 +1,6 @@
 package evolution.rules;
 
+import evolution.RandomNumberGenerator;
 import evolution.rules.conditions.Condition;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class Rule {
 
     ArrayList<Condition> conditions;
     int classLabel;
+    double weight;
 
     public Rule() {
         conditions = new ArrayList<Condition>();
@@ -48,6 +50,7 @@ public class Rule {
         Rule n = new Rule();
         n.classLabel = classLabel;
         n.conditions = new ArrayList<Condition>(conditions.size());
+        n.weight = weight;
         for (int i = 0; i < conditions.size(); i++) {
             n.conditions.add((Condition) conditions.get(i).clone());
         }
@@ -61,4 +64,14 @@ public class Rule {
         sb.append(classLabel);
         return sb.toString();
     }
+
+
+	public double getWeight() {
+		return weight;
+	}
+
+
+	public void mutateWeights() {
+		weight = RandomNumberGenerator.getInstance().nextGaussian();
+	}
 }
