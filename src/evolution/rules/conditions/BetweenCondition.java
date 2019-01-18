@@ -22,6 +22,12 @@ public class BetweenCondition extends Condition {
 		center = minVal + rng.nextDouble() * (maxVal - minVal);
 		range = rng.nextDouble() * (center - minVal > maxVal - center ? center - minVal : maxVal - center);
 	}
+	
+	public void targetedInitialization() {
+		RandomNumberGenerator rng = RandomNumberGenerator.getInstance();
+		center = minVal + rng.nextDouble() * (maxVal - minVal);
+		range = rng.nextDouble() * (center - minVal > maxVal - center ? center - minVal : maxVal - center);
+	}
 
 	@Override
 	public boolean matches(double value) {
@@ -32,9 +38,9 @@ public class BetweenCondition extends Condition {
 	public void mutate(Object parameter) {
 		RandomNumberGenerator rng = RandomNumberGenerator.getInstance();
 		if (rng.nextDouble() > 0.5)
-			center += ((Double) parameter) * rng.nextGaussian();
+			center += ((Double) parameter) * (maxVal-minVal) * rng.nextGaussian();
 		else
-			range += ((Double) parameter) * rng.nextGaussian();
+			range += ((Double) parameter) * (maxVal-minVal) * rng.nextGaussian();
 		if (center < 0) {
 			center = Math.abs(center);
 			if (center - range < 0)
@@ -53,6 +59,14 @@ public class BetweenCondition extends Condition {
 	@Override
 	public String toString() {
 		return Double.toString(center-range) + "-" + Double.toString(center+range);
+	}
+	
+	public double getLower() {
+		return center - range;
+	}
+	
+	public double getUpper() {
+		return center + range;
 	}
 
 }
