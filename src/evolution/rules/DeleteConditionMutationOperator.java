@@ -4,14 +4,14 @@ import evolution.Population;
 import evolution.RandomNumberGenerator;
 import evolution.operators.Operator;
 
-public class RuleWeightMutation implements Operator{
+public class DeleteConditionMutationOperator implements Operator{
 
     double mutProb;
     double mutProbPerBit;
     double mutSigma;
     RandomNumberGenerator rng;
 
-    public RuleWeightMutation(double mutProb, double mutProbPerBit, double mutSigma) {
+    public DeleteConditionMutationOperator(double mutProb, double mutProbPerBit, double mutSigma) {
         this.mutProb = mutProb;
         this.mutProbPerBit = mutProbPerBit;
         this.mutSigma = mutSigma;
@@ -32,7 +32,7 @@ public class RuleWeightMutation implements Operator{
                 for (int j = 0; j < o1.length(); j++) {
                     for (int k = 0; k < o1.getRules().get(j).getConditions().size(); k++)
                     if (rng.nextDouble() < mutProbPerBit) {
-                        o1.getRules().get(j).mutateWeights();
+                        o1.getRules().get(j).getConditions().get(k).mutate(mutSigma);
                     }
                 }
             }

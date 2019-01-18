@@ -164,10 +164,13 @@ public class RulesMain {
 
             EvolutionaryAlgorithm ea = new EvolutionaryAlgorithm();
             ea.setCPUCores(cpu_cores);
-            ea.addOperator(new RulesCrossoverOperator(xoverProb));
+            ea.addOperator(new CondCrossoverOperator(xoverProb));
             ea.addOperator(new ConditionMutationOperator(mutProb, mutProbPerBit, mutSigma));
             ea.addOperator(new ClassChangeMutationOperator(mutProb, mutProbPerBit, 3));
-            ea.addOperator(new RuleWeightMutation(mutProb, mutProbPerBit, mutSigma));
+            ea.addOperator(new RuleCrossoverOperator(xoverProb));
+            ea.addOperator(new DeleteConditionMutationOperator(mutProb, mutProbPerBit, mutSigma));
+            ea.addOperator(new OverwriteConditionMutationOperator(mutProb, mutProbPerBit, mutSigma));
+//            ea.addOperator(new PriorityMutation(mutProb, mutProbPerBit, mutSigma));
             ea.setFitnessFunction(new RuleFitness(attrs, targets));
             ea.addEnvironmentalSelector(new TournamentSelector());
             ea.setElite(eliteSize);

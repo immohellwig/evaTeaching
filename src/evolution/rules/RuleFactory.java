@@ -16,16 +16,17 @@ public class RuleFactory {
 
         for (int i = 0; i < numconditions; i++) {
             double ball = rng.nextDouble();
-            if (ball < 0.25) {
-                LessThanCondition lc = new LessThanCondition(lb[i], ub[i]);
-                lc.randomInitialization();
-                r.addCondition(lc);
-            }
-            else if (ball < 0.5) {
-                GreaterThanCondition gc = new GreaterThanCondition(lb[i], ub[i]);
-                gc.randomInitialization();
-                r.addCondition(gc);
-            } else if (ball < 0.75) {
+//            if (ball < 0.15) {
+//                LessThanCondition lc = new LessThanCondition(lb[i], ub[i]);
+//                lc.randomInitialization();
+//                r.addCondition(lc);
+//            }
+//            else if (ball < 0.3) {
+//                GreaterThanCondition gc = new GreaterThanCondition(lb[i], ub[i]);
+//                gc.randomInitialization();
+//                r.addCondition(gc);
+//            } else 
+        	if (ball < 0.5) {
             	BetweenCondition bc = new BetweenCondition(lb[i], ub[i]);
             	bc.randomInitialization();
             	r.addCondition(bc);
@@ -35,7 +36,7 @@ public class RuleFactory {
         }
 
         r.setClassLabel(rng.nextInt(numClasses));
-        r.weight = rng.nextGaussian();
+        r.priority = rng.nextInt(numconditions);
 
         return r;
     }

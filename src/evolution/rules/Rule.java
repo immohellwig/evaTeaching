@@ -11,7 +11,7 @@ public class Rule {
 
     ArrayList<Condition> conditions;
     int classLabel;
-    double weight;
+    int priority;
 
     public Rule() {
         conditions = new ArrayList<Condition>();
@@ -50,7 +50,7 @@ public class Rule {
         Rule n = new Rule();
         n.classLabel = classLabel;
         n.conditions = new ArrayList<Condition>(conditions.size());
-        n.weight = weight;
+        n.priority = priority;
         for (int i = 0; i < conditions.size(); i++) {
             n.conditions.add((Condition) conditions.get(i).clone());
         }
@@ -66,12 +66,13 @@ public class Rule {
     }
 
 
-	public double getWeight() {
-		return weight;
+	public int getPriority() {
+		return priority;
 	}
 
 
-	public void mutateWeights() {
-		weight = RandomNumberGenerator.getInstance().nextGaussian();
+	public void setPriority(int priority) {
+		this.priority = priority;
+		
 	}
 }

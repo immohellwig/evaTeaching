@@ -6,12 +6,12 @@ import evolution.operators.Operator;
 
 import java.util.Collections;
 
-public class RulesCrossoverOperator implements Operator{
+public class RuleCrossoverOperator implements Operator{
 
     double xoverProb;
     RandomNumberGenerator rng;
 
-    public RulesCrossoverOperator(double xoverProb) {
+    public RuleCrossoverOperator(double xoverProb) {
         this.xoverProb = xoverProb;
         this.rng = RandomNumberGenerator.getInstance();
     }

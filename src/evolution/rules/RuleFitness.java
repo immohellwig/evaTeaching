@@ -61,7 +61,7 @@ public class RuleFitness implements FitnessFunction{
                     double votes = 0.0;
                     if (classVotes.containsKey(cls))
                         votes = classVotes.get(cls);
-                    classVotes.put(cls, votes+r.getWeight());
+                    classVotes.put(cls, votes+1.0);
                 }
             }
 

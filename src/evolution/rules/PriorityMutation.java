@@ -3,16 +3,15 @@ package evolution.rules;
 import evolution.Population;
 import evolution.RandomNumberGenerator;
 import evolution.operators.Operator;
-import evolution.rules.conditions.UniversalCondition;
 
-public class ConditionMutationOperator implements Operator{
+public class PriorityMutation implements Operator{
 
     double mutProb;
     double mutProbPerBit;
     double mutSigma;
     RandomNumberGenerator rng;
 
-    public ConditionMutationOperator(double mutProb, double mutProbPerBit, double mutSigma) {
+    public PriorityMutation(double mutProb, double mutProbPerBit, double mutSigma) {
         this.mutProb = mutProb;
         this.mutProbPerBit = mutProbPerBit;
         this.mutSigma = mutSigma;
@@ -33,7 +32,7 @@ public class ConditionMutationOperator implements Operator{
                 for (int j = 0; j < o1.length(); j++) {
                     for (int k = 0; k < o1.getRules().get(j).getConditions().size(); k++)
                     if (rng.nextDouble() < mutProbPerBit) {
-                        o1.getRules().get(j).getConditions().set(k, new UniversalCondition());
+                        o1.mutatePriority();
                     }
                 }
             }
