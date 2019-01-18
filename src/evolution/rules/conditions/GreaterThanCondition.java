@@ -3,10 +3,10 @@ package evolution.rules.conditions;
 import evolution.RandomNumberGenerator;
 
 public class GreaterThanCondition extends Condition {
-
-    double boundary;
     double minValue;
     double maxValue;
+    
+    public double boundary;
 
     public GreaterThanCondition(double minValue, double maxValue) {
         this.minValue = minValue;

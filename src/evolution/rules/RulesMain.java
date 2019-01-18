@@ -2,6 +2,7 @@ package evolution.rules;
 
 import evolution.*;
 import evolution.individuals.Individual;
+import evolution.selectors.SUS;
 import evolution.selectors.TournamentSelector;
 
 import java.io.*;
@@ -81,7 +82,8 @@ public class RulesMain {
         targets = new ArrayList<Integer>();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(inputFile));
+            @SuppressWarnings("resource")
+			BufferedReader br = new BufferedReader(new FileReader(inputFile));
             String line;
             while ((line = br.readLine()) != null) {
                 String[] tokens = line.split(",");
@@ -167,6 +169,7 @@ public class RulesMain {
             ea.addOperator(new RulesCrossoverOperator(xoverProb));
             ea.addOperator(new ConditionMutationOperator(mutProb, mutProbPerBit, mutSigma));
             ea.addOperator(new ClassChangeMutationOperator(mutProb, mutProbPerBit, 3));
+            ea.addOperator(new RuleWeightMutation(mutProb, mutProbPerBit, mutSigma));
             ea.setFitnessFunction(new RuleFitness(attrs, targets));
             ea.addEnvironmentalSelector(new TournamentSelector());
             ea.setElite(eliteSize);
@@ -182,6 +185,8 @@ public class RulesMain {
 
                 StatsLogger.logFitness(pop, fitnessOut);
                 StatsLogger.logObjective(pop, objectiveOut);
+                if (error_rate == 0)
+                	break;
             }
 
             RuleIndividual ri = (RuleIndividual)pop.getSortedIndividuals().get(0);

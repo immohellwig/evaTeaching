@@ -4,8 +4,6 @@ import evolution.RandomNumberGenerator;
 import evolution.individuals.ArrayIndividual;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class RuleIndividual extends ArrayIndividual {
 
@@ -47,11 +45,11 @@ public class RuleIndividual extends ArrayIndividual {
     @Override
     public void randomInitialization() {
 
-        int ruleNum = RandomNumberGenerator.getInstance().nextInt(maxRules);
+//        int ruleNum = RandomNumberGenerator.getInstance().nextInt(maxRules);
 
         rules = new ArrayList<Rule>();
 
-        for (int i = 0; i < ruleNum; i++) {
+        for (int i = 0; i < maxRules; i++) {
             rules.add(RuleFactory.createRandomRule(numConditionsPerRule, numClasses, lb, ub));
         }
 
