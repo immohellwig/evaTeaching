@@ -11,7 +11,7 @@ public class Rule {
 
     ArrayList<Condition> conditions;
     int classLabel;
-    int priority;
+    private int priority;
 
     public Rule() {
         conditions = new ArrayList<Condition>();
@@ -31,7 +31,8 @@ public class Rule {
     }
 
     public void setClassLabel(int classLabel) {
-        this.classLabel = classLabel;
+    	this.classLabel = classLabel;
+//        this.classLabel = (classLabel % 7) + 3;
     }
 
     public void setCondition(int i, Condition c) {
@@ -59,9 +60,9 @@ public class Rule {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(Arrays.toString(conditions.toArray()));
+        sb.append(classLabel + "|" + priority);
         sb.append(" -> ");
-        sb.append(classLabel);
+        sb.append(Arrays.toString(conditions.toArray()));
         return sb.toString();
     }
 

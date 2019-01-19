@@ -6,6 +6,7 @@ import evolution.operators.Operator;
 import evolution.rules.conditions.BetweenCondition;
 import evolution.rules.conditions.GreaterThanCondition;
 import evolution.rules.conditions.LessThanCondition;
+import evolution.rules.conditions.UniversalCondition;
 
 public class OverwriteConditionMutationOperator implements Operator {
 
@@ -34,7 +35,7 @@ public class OverwriteConditionMutationOperator implements Operator {
 			if (rng.nextDouble() < mutProb) {
 				for (int j = 0; j < o1.length(); j++) {
 					for (int k = 0; k < o1.getRules().get(j).getConditions().size(); k++)
-						if (rng.nextDouble() < mutProbPerBit) {
+						if (o1.getRules().get(j).getConditions().get(k) instanceof UniversalCondition && rng.nextDouble() < mutProbPerBit) {
 //							double ball = rng.nextDouble();
 //							if (ball < 1 / 3) {
 								BetweenCondition btw = new BetweenCondition(o1.lb[k], o1.ub[k]);

@@ -27,13 +27,17 @@ public class ClassChangeMutationOperator implements Operator {
             RuleIndividual p1 = (RuleIndividual) parents.get(i);
             RuleIndividual o1 = (RuleIndividual) p1.clone();
 
-            if (rng.nextDouble() < mutProb) {
+//            if (rng.nextDouble() < mutProb) {
                 for (int j = 0; j < o1.length(); j++) {
                         if (rng.nextDouble() < mutProbPerBit) {
-                            o1.getRules().get(j).setClassLabel(rng.nextInt(numClasses));
+                        	int j2 = rng.nextInt(o1.length());
+                            int tmp = o1.getRules().get(j).getClassLabel();
+                            o1.getRules().get(j).setClassLabel(o1.getRules().get(j2).getClassLabel());
+                            o1.getRules().get(j2).setClassLabel(tmp);
+                            break;
                         }
                 }
-            }
+//            }
 
             offspring.add(o1);
         }

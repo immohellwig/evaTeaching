@@ -4,6 +4,7 @@ import evolution.RandomNumberGenerator;
 import evolution.individuals.ArrayIndividual;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class RuleIndividual extends ArrayIndividual {
 
@@ -45,13 +46,13 @@ public class RuleIndividual extends ArrayIndividual {
     @Override
     public void randomInitialization() {
 
-        int ruleNum = RandomNumberGenerator.getInstance().nextInt(maxRules);
+//        int ruleNum = RandomNumberGenerator.getInstance().nextInt(maxRules);
 
         rules = new ArrayList<Rule>();
 
-        for (int i = 0; i < ruleNum; i++) {
-            rules.add(RuleFactory.createRandomRule(numConditionsPerRule, numClasses, lb, ub));
-            rules.get(i).setPriority(i);
+        for (int i = 0; i < maxRules; i++) {
+            rules.add(RuleFactory.createRandomRule(numConditionsPerRule, (i%7)+3, lb, ub));
+            rules.get(i).setPriority(i%7);
         }
 
     }
@@ -69,7 +70,6 @@ public class RuleIndividual extends ArrayIndividual {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-
         for (int i = 0; i < rules.size(); i++) {
             str.append(rules.get(i));
             if (i < rules.size() - 1)
@@ -80,9 +80,16 @@ public class RuleIndividual extends ArrayIndividual {
 
 	public void mutatePriority() {
 		Rule r1 = rules.get(RandomNumberGenerator.getInstance().nextInt(rules.size()));
-		Rule r2 = rules.get(RandomNumberGenerator.getInstance().nextInt(rules.size()));
-		int tmp = r1.getPriority();
-		r1.setPriority(r2.getPriority());
-		r2.setPriority(tmp);
+		r1.setPriority(RandomNumberGenerator.getInstance().nextInt(rules.size()));
+	}
+
+	public void orderByPrio() {
+		Comparator<Rule> c = new Comparator<Rule>() {
+			@Override
+			public int compare(Rule arg0, Rule arg1) {
+				return arg0.getPriority() > arg1.getPriority() ? 1 : -1;
+			}
+		};
+		rules.sort(c);
 	}
 }

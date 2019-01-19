@@ -49,14 +49,19 @@ public class RuleFitness implements FitnessFunction{
     }
 
     double accuracy(Individual ind, double[][] data, Integer[] classes) {
-        RuleIndividual rind = (RuleIndividual)ind;
+        RuleIndividual rind = (RuleIndividual) ind.clone();
 
         double acc = 0.0;
 
         for (int i = 0; i < data.length; i++) {
             HashMap<Integer, Double> classVotes = new HashMap<Integer, Double>();
+            rind.orderByPrio();
+//            int lastMatchingPrio = -1;
             for (Rule r : rind.getRules()) {
+//            	if (lastMatchingPrio >= 0 && r.getPriority() != lastMatchingPrio)
+//            		break;
                 if (r.matches(data[i])) {
+//                	lastMatchingPrio = r.getPriority();
                     int cls = r.getClassLabel();
                     double votes = 0.0;
                     if (classVotes.containsKey(cls))
